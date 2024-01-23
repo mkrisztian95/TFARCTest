@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CropViewController" customModule="MathSolver" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="wHS-aj-Fct" id="O2V-kc-zER"/>
+                <outlet property="cancelButton" destination="bEI-sT-uJJ" id="Rtu-8b-X1C"/>
+                <outlet property="continueButton" destination="cy0-J4-jof" id="Cdz-2H-U3T"/>
+                <outlet property="hintLabel" destination="1jw-ax-uMq" id="Imn-Db-lJ9"/>
+                <outlet property="hintLabelLeadingConstraint" destination="WPP-sv-Aps" id="BJa-eG-bLN"/>
+                <outlet property="hintLabelTopConstraint" destination="EDy-Gh-uv3" id="2Sf-l1-Ygm"/>
+                <outlet property="overlay" destination="d6n-tL-Gd2" id="eib-LB-MXf"/>
+                <outlet property="snapImageView" destination="bDL-N7-sOl" id="HaJ-sB-rig"/>
+                <outlet property="view" destination="iN0-l3-epB" id="eTz-9k-qec"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bDL-N7-sOl">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWj-YR-OzQ">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="107"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uR1-n3-WMU">
+                            <rect key="frame" x="0.0" y="59" width="393" height="48"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHS-aj-Fct" customClass="BackButton" customModule="MathSolver" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="Bkm-uI-l7b"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="wHS-aj-Fct" secondAttribute="bottom" id="Rbe-ca-wpk"/>
+                                <constraint firstAttribute="height" constant="48" id="h16-aL-aOo"/>
+                                <constraint firstItem="wHS-aj-Fct" firstAttribute="leading" secondItem="uR1-n3-WMU" secondAttribute="leading" id="rT0-vW-aw0"/>
+                                <constraint firstItem="wHS-aj-Fct" firstAttribute="top" secondItem="uR1-n3-WMU" secondAttribute="top" id="ytg-Dd-hC2"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" name="alphaConstantBlack70064"/>
+                    <constraints>
+                        <constraint firstItem="uR1-n3-WMU" firstAttribute="leading" secondItem="cWj-YR-OzQ" secondAttribute="leading" id="fAG-sE-8vF"/>
+                        <constraint firstAttribute="trailing" secondItem="uR1-n3-WMU" secondAttribute="trailing" id="hu8-lR-oSq"/>
+                        <constraint firstAttribute="bottom" secondItem="uR1-n3-WMU" secondAttribute="bottom" id="yh1-h5-qhX"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6n-tL-Gd2" customClass="CameraFrameOverlay" customModule="MathSolver" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="107" width="393" height="745"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jw-ax-uMq">
+                    <rect key="frame" x="175" y="415" width="110" height="20.333333333333314"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="Ipa-nc-dh6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PgC-55-RVm">
+                    <rect key="frame" x="24" y="738" width="345" height="48"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEI-sT-uJJ">
+                            <rect key="frame" x="0.0" y="0.0" width="164.66666666666666" height="48"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="24"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cy0-J4-jof" customClass="PrimaryButton" customModule="MathSolver" customModuleProvider="target">
+                            <rect key="frame" x="180.66666666666663" y="0.0" width="164.33333333333337" height="48"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="24"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="7Df-SS-niD"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" name="backgroundPrimary"/>
+            <constraints>
+                <constraint firstItem="cWj-YR-OzQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1eS-cL-R2W"/>
+                <constraint firstAttribute="bottom" secondItem="bDL-N7-sOl" secondAttribute="bottom" id="6G8-Dk-5TZ"/>
+                <constraint firstItem="bDL-N7-sOl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BKv-91-sBu"/>
+                <constraint firstItem="cWj-YR-OzQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Btz-bE-sw9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="PgC-55-RVm" secondAttribute="trailing" constant="24" id="COJ-ic-f5m"/>
+                <constraint firstItem="1jw-ax-uMq" firstAttribute="top" secondItem="cWj-YR-OzQ" secondAttribute="top" constant="415" id="EDy-Gh-uv3"/>
+                <constraint firstItem="bDL-N7-sOl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="LcS-Pi-v1M"/>
+                <constraint firstAttribute="bottom" secondItem="d6n-tL-Gd2" secondAttribute="bottom" id="MQf-aF-V45"/>
+                <constraint firstItem="1jw-ax-uMq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="175" id="WPP-sv-Aps"/>
+                <constraint firstItem="uR1-n3-WMU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="YBm-bC-Kah"/>
+                <constraint firstItem="bDL-N7-sOl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YTb-Aw-GqB"/>
+                <constraint firstItem="d6n-tL-Gd2" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="YnN-8s-Has"/>
+                <constraint firstAttribute="trailing" secondItem="cWj-YR-OzQ" secondAttribute="trailing" id="cxT-Bs-oTf"/>
+                <constraint firstItem="d6n-tL-Gd2" firstAttribute="top" secondItem="cWj-YR-OzQ" secondAttribute="bottom" id="tma-G8-enf"/>
+                <constraint firstItem="d6n-tL-Gd2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wJe-uU-1Fr"/>
+                <constraint firstItem="PgC-55-RVm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="zGc-Ij-bBI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="PgC-55-RVm" secondAttribute="bottom" constant="32" id="zWn-Si-cIl"/>
+            </constraints>
+            <point key="canvasLocation" x="136.64122137404578" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="alphaConstantBlack70064">
+            <color red="0.023529411764705882" green="0.023529411764705882" blue="0.023529411764705882" alpha="0.63999998569488525" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backgroundPrimary">
+            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

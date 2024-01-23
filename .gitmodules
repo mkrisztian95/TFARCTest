@@ -1,0 +1,6 @@
+[submodule "Packages/CMExtensions"]
+	path = Packages/CMExtensions
+	url = https://github.com/mkrisztian95/CMExtensions.git
+[submodule "Packages/CustomizableAvatar"]
+	path = Packages/CustomizableAvatar
+	url = https://github.com/mkrisztian95/CustomizableAvatar.git

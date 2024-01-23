@@ -1,0 +1,21 @@
+#include "Version.xcconfig"
+
+ENVIRONMENT = TESTING
+
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+CODE_SIGN_STYLE = Manual
+CURRENT_PROJECT_VERSION = 1
+GENERATE_INFOPLIST_FILE = YES
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+INFOPLIST_FILE = MathSolver/Info.plist
+INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES
+INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
+PRODUCT_BUNDLE_IDENTIFIER = com.worbert.mathapp
+DEVELOPMENT_TEAM = 68BLKTR2RQ
+PRODUCT_NAME = $(TARGET_NAME)
+SWIFT_EMIT_LOC_STRINGS = YES
+SWIFT_VERSION = 5.0
+TARGETED_DEVICE_FAMILY = 1
+OTHER_LDFLAGS = -ObjC -lsqlite3.0 -Xlinker -no_warn_duplicate_libraries
