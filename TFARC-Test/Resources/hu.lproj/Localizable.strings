@@ -1,7 +1,11 @@
-/* 
-  Localizable.strings
-  TFARC-Test
+"continue" = "Folytatás";
+"cancel" = "Mégse";
 
-  Created by Christian Molnar on 2024. 01. 23..
-  
-*/
+// MARK: - Kamera
+
+"take_photo" = "Készítse el a fényképet";
+"crop_the_photo" = "Vágja ki a fényképet";
+"allow_access_to_camera" = "Engedélyezze a hozzáférést a kamerához";
+"to_settings" = "Az új avatar feltöltéséhez kérjük, látogasson el a Beállításokba, és engedélyezze számunkra a kamera használatát.";
+"not_now" = "Most nem";
+"customize_your_logo" = "Beállítások";

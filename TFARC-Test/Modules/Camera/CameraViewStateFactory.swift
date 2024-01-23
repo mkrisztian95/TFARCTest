@@ -15,7 +15,7 @@ class CameraViewStateFactory {
     ) -> ViewState {
         ViewState(
             flashIcon: cameraEnabled ? (isFlashEnabled ? .icFlashOn : .icFlashOff) : nil,
-            hintText: i18n.str(.takePhotoOfTheTask)
+            hintText: i18n.str(.takePhoto)
         )
     }
 
@@ -25,7 +25,7 @@ class CameraViewStateFactory {
     ) -> PopUpViewState {
         PopUpViewState(
             title: i18n.str(.allowAccessToCamera),
-            subtitle: i18n.str(.toSolveMathProblem)
+            subtitle: i18n.str(.toSettings)
         ) {
             PopUpButtonViewState(
                 title: i18n.str(.continue),

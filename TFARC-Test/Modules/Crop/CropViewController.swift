@@ -1,6 +1,5 @@
 import AVKit
 import CombinePlus
-import Lottie
 import UIKitPlus
 
 protocol CropViewProtocol: BaseViewController {
@@ -19,7 +18,6 @@ class CropViewController: BaseViewController {
         let cancelButtonTitle: String
         let continueButtonTitle: String
         let hintText: String
-        let processingText: String
         let imageContentMode: UIView.ContentMode
     }
 
@@ -60,66 +58,6 @@ class CropViewController: BaseViewController {
 
     // MARK: - Private properties
 
-    private lazy var processingLabel = UILabel().then {
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        $0.font = .titleSemiBold
-        $0.textColor = .constantWhite
-    }
-
-    private lazy var processingAnimationView = LottieAnimationView().then { animationView in
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        animationView.animation = LottieAnimation.named("processing")
-        animationView.backgroundBehavior = .pauseAndRestore
-        animationView.loopMode = .loop
-
-        NSLayoutConstraint.activate {
-            animationView.widthAnchor.constraint(equalToConstant: 154)
-            animationView.heightAnchor.constraint(equalToConstant: 88)
-        }
-    }
-
-    private lazy var processingStack = UIStackView(arrangedSubviews: [processingAnimationView, processingLabel]).then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-
-        $0.alignment = .center
-        $0.distribution = .fill
-        $0.axis = .vertical
-        $0.spacing = 64.0
-    }
-
-    private lazy var loadingContainerView = UIView().then { containerView in
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.alpha = 0
-        containerView.isHidden = true
-        containerView.backgroundColor = .backgroundPrimary
-        view.addSubview(containerView)
-        containerView.addSubview(loadingView)
-
-        NSLayoutConstraint.activate {
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            containerView.topAnchor.constraint(equalTo: view.topAnchor)
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-
-            loadingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
-            loadingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-            loadingView.topAnchor.constraint(equalTo: containerView.topAnchor)
-            loadingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-        }
-    }
-
-    private lazy var loadingView = UIView().then { loadingView in
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.backgroundColor = .alphaConstantBlack90088
-        loadingView.addSubview(processingStack)
-
-        NSLayoutConstraint.activate {
-            processingStack.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor)
-            processingStack.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor)
-        }
-    }
-
     // MARK: - Public Properties
 
     var viewModel: CropViewModel!
@@ -153,16 +91,6 @@ class CropViewController: BaseViewController {
                 hintLabelTopConstraint.constant = $0.y
             }
             .store(in: &bag)
-    }
-
-    override func startLoading() {
-        loadingContainerView.setHidden(false, withDuration: 0.3)
-        processingAnimationView.play()
-    }
-
-    override func stopLoading() {
-        loadingContainerView.setHidden(true, withDuration: 0.3)
-        processingAnimationView.stop()
     }
 }
 
@@ -202,6 +130,5 @@ extension CropViewController: CropViewProtocol {
         cancelButton.setTitle(viewState.cancelButtonTitle)
         hintLabel.text = viewState.hintText
         snapImageView.contentMode = viewState.imageContentMode
-        processingLabel.text = viewState.processingText
     }
 }

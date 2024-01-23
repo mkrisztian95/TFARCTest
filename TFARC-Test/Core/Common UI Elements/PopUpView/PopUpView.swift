@@ -113,7 +113,7 @@ class PopUpView: UIView {
     }
 
     private func configureUI() {
-        backgroundColor = .alphaConstantBlack70064
+        backgroundColor = .clear
 
         addSubviews(popUpContainerView, dismissView)
         popUpContainerView.addSubviews(buttonStack, headerStack, closeButton)

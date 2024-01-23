@@ -1,7 +1,6 @@
 import AVFoundationPlus
 import CombinePlus
 import Depin
-import Networking
 import UIKit
 import XCoordinator
 
@@ -10,13 +9,10 @@ class CameraViewModel {
     // MARK: - Injected properties
 
     private unowned let view: CameraViewProtocol
-    private let router: StrongRouter<CameraRoute>
+    private let router: StrongRouter<UserProfileRoute>
 
     @Injected private var cameraService: CameraSessionService
-    @Injected private var mathNetworkService: MathNetworkService
-    @Injected private var userInfoProvider: UserInfoProvider
     @Injected private var factory: CameraViewStateFactory
-    @Injected private var analytics: UserAnalytics
 
     // MARK: - Private Properties
 
@@ -24,7 +20,7 @@ class CameraViewModel {
     private var isFlashEnabled = false
 
     init(
-        router: StrongRouter<CameraRoute>,
+        router: StrongRouter<UserProfileRoute>,
         view: CameraViewProtocol
     ) {
         self.router = router
@@ -48,9 +44,6 @@ private extension CameraViewModel {
             .store(in: &bag)
 
         view.viewDidLoadPublisher
-            .track { [unowned self] in
-                analytics.collect(event: .mathSolvingCameraShown)
-            }
             .sink { [unowned self] in
                 viewDidLoad()
             }
@@ -141,21 +134,14 @@ private extension CameraViewModel {
             }
             .store(in: &bag)
 
-        view.tipsTapPublisher
+        view.backTapPublisher
             .sink { [unowned self] in
-                router.trigger(.tips(referrer: .camera))
-            }
-            .store(in: &bag)
-
-        view.settingsTapPublisher
-            .sink { [unowned self] in
-                router.trigger(.settings)
+                router.trigger(.pop)
             }
             .store(in: &bag)
     }
 
     func viewDidLoad() {
-        userInfoProvider.mainScreenWasShown = true
         bindViewPublishers()
         bindCameraSessionPublishers()
     }

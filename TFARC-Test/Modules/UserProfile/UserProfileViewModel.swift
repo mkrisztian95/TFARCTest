@@ -1,8 +1,8 @@
 import CombinePlus
+import CustomizableAvatar
 import Depin
 import UIKit
 import XCoordinator
-import CustomizableAvatar
 
 class UserProfileViewModel {
 
@@ -30,9 +30,11 @@ class UserProfileViewModel {
     }
 
     func set(image: UIImage) {
-        view.apply(factory.make(with: .image(image)))
-        UserDefaults.standard.saveNewSource(.image(image))
+        let source = AvatarSource.image(image)
+        UserDefaults.standard.saveNewSource(source)
+        UserDefaults.standard.currentSource = source
         view.hidePopUp()
+        view.apply(factory.make(with: source, and: UserDefaults.standard.previousAvatarSources))
     }
 }
 
@@ -40,7 +42,10 @@ private extension UserProfileViewModel {
     func bind() {
         view.sourceConfigPublisher
             .compactMap { [weak self] in
-                self?.factory.make(with: $0)
+                self?.factory.make(
+                    with: $0,
+                    and: UserDefaults.standard.previousAvatarSources
+                )
             }
             .sink { [weak self] in
                 self?.view.apply($0)
@@ -49,7 +54,10 @@ private extension UserProfileViewModel {
 
         view.viewDidLoadPublisher
             .compactMap { [weak self] in
-                self?.factory.make(with: UserDefaults.standard.currentSource)
+                self?.factory.make(
+                    with: UserDefaults.standard.currentSource,
+                    and: UserDefaults.standard.previousAvatarSources
+                )
             }
             .sink { [weak self] in
                 self?.bindOnLoad()
@@ -67,116 +75,35 @@ private extension UserProfileViewModel {
             .store(in: &bag)
 
         view.saveTappedPublisher
-            .sink { [unowned self] in
+            .perform { [unowned self] in
                 UserDefaults.standard.saveNewSource($0)
+                UserDefaults.standard.currentSource = $0
                 view.hidePopUp()
             }
+            .map { [unowned self] in
+                factory.make(
+                    with: $0,
+                    and: UserDefaults.standard.previousAvatarSources
+                )
+            }
+            .sink { [unowned self] in
+                view.apply($0)
+            }
             .store(in: &bag)
-    }
-}
 
-extension AvatarSource {
-    init?(with dic: [String: Any]) {
-        if dic["image"] != nil {
-            if let data = dic["image"] as? Data, let image = UIImage(data: data) {
-                self = .image(image)
-            } else {
-                self = .image(.placeholder)
+        view.previousAvatarSourcePublisher
+            .perform {
+                UserDefaults.standard.currentSource = $0
             }
-        }
-        if let flag = dic["gradient_enabled"] as? Bool {
-            if flag {
-                self = .gradientColor(.init(
-                    fontSize: UIFont.logoRegular.pointSize,
-                    fontName: UIFont.logoRegular.fontName,
-                    startColor: dic["startColor"] as? String ?? "",
-                    endColor: dic["endColor"] as? String ?? "",
-                    textColor: dic["textColor"] as? String ?? "",
-                    name: dic["name"] as? String ?? ""
-                ))
-            } else {
-                self = .solidColor(.init(
-                    fontSize: UIFont.logoRegular.pointSize,
-                    fontName: UIFont.logoRegular.fontName,
-                    backgroundColor: dic["backgroundColor"] as? String ?? "",
-                    textColor: dic["textColor"] as? String ?? "",
-                    name: dic["name"] as? String ?? ""
-                ))
+            .compactMap { [weak self] in
+                self?.factory.make(
+                    with: $0,
+                    and: UserDefaults.standard.previousAvatarSources
+                )
             }
-        } else {
-            self = .image(.placeholder)
-        }
-    }
-}
-
-extension UserDefaults {
-    func saveNewSource(_ source: AvatarSource) {
-        currentSource = source
-        var dic = [String: Any]()
-        switch source {
-        case .gradientColor(let source):
-            dic["startColor"] = source.startColor
-            dic["endColor"] = source.endColor
-            dic["textColor"] = source.textColor
-            dic["name"] = source.name
-            dic["gradient_enabled"] = true
-
-        case .solidColor(let source):
-            dic["backgroundColor"] = source.backgroundColor
-            dic["textColor"] = source.textColor
-            dic["name"] = source.name
-            dic["gradient_enabled"] = false
-        case .image(let uIImage):
-            if let data = uIImage.pngData() {
-                dic["image"] = data
+            .sink { [weak self] in
+                self?.view.apply($0)
             }
-        }
-
-        if var values = value(forKey: #function) as? [[String: Any]] {
-            values.append(dic)
-            setValue(dic, forKey: #function)
-        }
-    }
-
-    var currentSource: AvatarSource? {
-        get {
-            if var value = value(forKey: #function) as? [String: Any] {
-                return AvatarSource(with: value)
-            }
-            return nil
-        }
-
-        set {
-            var dic = [String: Any]()
-            switch newValue {
-            case .gradientColor(let source):
-                dic["startColor"] = source.startColor
-                dic["endColor"] = source.endColor
-                dic["textColor"] = source.textColor
-                dic["name"] = source.name
-                dic["gradient_enabled"] = true
-
-            case .solidColor(let source):
-                dic["backgroundColor"] = source.backgroundColor
-                dic["textColor"] = source.textColor
-                dic["name"] = source.name
-                dic["gradient_enabled"] = false
-            case .image(let uIImage):
-                if let data = uIImage.pngData() {
-                    dic["image"] = data
-                }
-            case .none:
-                break
-            }
-            setValue(dic, forKey: #function)
-        }
-    }
-
-    var previousAvatarSources: [AvatarSource] {
-        if var values = value(forKey: #function) as? [[String: Any]] {
-            return values.compactMap { AvatarSource(with: $0) }
-        }
-
-        return []
+            .store(in: &bag)
     }
 }

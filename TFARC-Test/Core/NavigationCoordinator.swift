@@ -7,6 +7,6 @@ class NavigationCoordinator<RouteType: Route>: XCoordinator.NavigationCoordinato
     @Injected var moduleBuilder: ModuleBuilder
 
     deinit {
-        Logger.uiKit.log("DEINIT \(String(describing: self))")
+        print(" ☠️☠️☠️ DEINIT: \(String(describing: self))")
     }
 }

@@ -23,23 +23,7 @@ class CropViewStateFactory {
             cancelButtonTitle: i18n.str(.cancel),
             continueButtonTitle: i18n.str(.continue),
             hintText: i18n.str(.cropThePhoto),
-            processingText: i18n.str(.sitTightMagicInProgress),
             imageContentMode: imageContentMode
         )
-    }
-
-    func makePopUpViewState(closeAction retakeAction: @escaping () -> Void) -> PopUpViewState {
-        PopUpViewState(
-            title: i18n.str(.weCouldntRecogniseThisProblem),
-            subtitle: i18n.str(.makeSureAboutHighQualityPhoto),
-            icon: .icError,
-            showCloseButton: true
-        ) {
-            PopUpButtonViewState(
-                title: i18n.str(.retakePhoto),
-                type: .primary,
-                action: retakeAction
-            )
-        }
     }
 }

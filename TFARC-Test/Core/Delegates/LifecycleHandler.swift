@@ -1,13 +1,8 @@
-import DebugPanel
 import Depin
-import JatAppFoundation
 import UIKit
 import XCoordinator
 
 class LifecycleHandler: UIApplicationLifeCycleDelegate {
-
-    @Injected private var reachability: Reachability
-    @Injected private var crashlytics: CrashlyticsAnalyticClientProtocol
 
     private var window: UIWindow?
     private var splashWindow: UIWindow?
@@ -16,23 +11,14 @@ class LifecycleHandler: UIApplicationLifeCycleDelegate {
         _ application: UIApplication,
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-
-        let window = AppWindow()
-
-        self.window = window
-        do {
-            try reachability.startNotifier()
-        } catch { }
-
-        return true
+        window = AppWindow()
+         return true
     }
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        _ = crashlytics.application?(application, didFinishLaunchingWithOptions: launchOptions)
-
         start()
 
         return true

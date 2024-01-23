@@ -4,15 +4,7 @@ import XCoordinator
 
 enum AppRoute: Route {
 
-    enum PaywallRoute {
-        case afterOnboarding
-        case onLaunch
-    }
-
-    case splash
-    case onboarding
-    case paywall(PaywallRoute)
-    case camera
+    case initial
 }
 
 class AppCoordinator: NavigationCoordinator<AppRoute> {
@@ -20,38 +12,52 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
     init() {
         super.init(
             rootViewController: UINavigationController(),
-            initialRoute: .splash
+            initialRoute: .initial
         )
     }
 
     override func prepareTransition(for route: AppRoute) -> NavigationTransition {
         switch route {
 
-        case .splash:
-            let viewController = moduleBuilder.build(.splash(router: strongRouter))
-            return .set([viewController])
-
-        case .onboarding:
-            let viewController = moduleBuilder.build(.onboarding(router: strongRouter))
-            return .set([viewController], animation: .fade)
-
-        case .paywall(let route):
-            return .none(PaywallCoordinator(
-                rootViewController: rootViewController,
-                placement: paywallPlacement(for: route)
-            ))
-
-        case .camera:
-            return .none(CameraCoordinator(rootViewController: rootViewController, afterSplash: true))
+        case .initial:
+            return .none(UserProfileCoordinator(rootViewController: rootViewController))
         }
     }
+}
 
-    private func paywallPlacement(for route: RouteType.PaywallRoute) -> Analytics.Paywall.Placement {
-        switch route {
-        case .afterOnboarding:
-                .intro
-        case .onLaunch:
-                .appStart
+extension XCoordinator.Transition {
+
+    static func presentOnRoot(
+        _ presentable: Presentable,
+        modalPresentationStyle: UIModalPresentationStyle? = nil,
+        modalTransitionStyle: UIModalTransitionStyle? = nil,
+        animation: Animation? = nil
+    ) -> Self {
+        if let modalPresentationStyle {
+            presentable.viewController?.modalPresentationStyle = modalPresentationStyle
         }
+        if let modalTransitionStyle {
+            presentable.viewController?.modalTransitionStyle = modalTransitionStyle
+        }
+        return .presentOnRoot(presentable, animation: animation)
+    }
+
+    static func present(
+        _ presentable: Presentable,
+        modalPresentationStyle: UIModalPresentationStyle? = nil,
+        modalTransitionStyle: UIModalTransitionStyle? = nil,
+        animation: Animation? = nil
+    ) -> Self {
+        if let modalPresentationStyle {
+            presentable.viewController?.modalPresentationStyle = modalPresentationStyle
+        }
+        if let modalTransitionStyle {
+            presentable.viewController?.modalTransitionStyle = modalTransitionStyle
+        }
+        return .present(presentable, animation: animation)
+    }
+
+    static func none(_ presentable: Presentable) -> Transition {
+        .none()
     }
 }

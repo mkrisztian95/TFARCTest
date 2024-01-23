@@ -1,7 +1,13 @@
-/* 
-  Localizable.strings
-  TFARC-Test
+// MARK: - Onboarding
 
-  Created by Christian Molnar on 2024. 01. 23..
-  
-*/
+"continue" = "Continue";
+"cancel" = "Cancel";
+
+// MARK: - Camera
+
+"take_photo" = "Take a photo";
+"crop_the_photo" = "Crop the photo";
+"allow_access_to_camera" = "Allow Access to Camera";
+"to_settings" = "To upload a new avatar, please go to Settings and give us access to your camera.";
+"not_now" = "Not Now";
+"customize_your_logo" = "Customize Your Logo";

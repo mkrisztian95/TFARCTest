@@ -96,7 +96,7 @@ extension UIFont {
     }
 
     static var logoRegular: UIFont {
-        customFont("SomeAwesome_to_find-Regular", size: 46.0)
+        customFont("SomeAwesome_to_find-Regular", size: 32.0)
     }
 
     static var titleSemiBold: UIFont {

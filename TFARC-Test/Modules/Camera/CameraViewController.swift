@@ -6,8 +6,7 @@ protocol CameraViewProtocol: BaseViewController {
     var flashTapPublisher: AnyPublisher<Void, Never> { get }
     var libraryTapPublisher: AnyPublisher<Void, Never> { get }
     var snapTapPublisher: AnyPublisher<Void, Never> { get }
-    var tipsTapPublisher: AnyPublisher<Void, Never> { get }
-    var settingsTapPublisher: AnyPublisher<Void, Never> { get }
+    var backTapPublisher: AnyPublisher<Void, Never> { get }
 
     func apply(_ viewState: CameraViewController.ViewState)
     func setup(with session: AVCaptureSession)
@@ -25,10 +24,9 @@ class CameraViewController: BaseViewController {
     @IBOutlet private var cameraOverlay: CameraFrameOverlay!
     @IBOutlet private var previewView: PreviewView!
     @IBOutlet private var snapButton: SnapButton!
-    @IBOutlet private var tipsButton: UIButton!
-    @IBOutlet private var settingsButton: UIButton!
     @IBOutlet private var libraryButton: UIButton!
     @IBOutlet private var flashButton: UIButton!
+    @IBOutlet private var backButton: UIButton!
     @IBOutlet private var cameraActionsContainerView: UIView!
 
     @IBOutlet private var hintLabel: UILabel! {
@@ -63,6 +61,10 @@ class CameraViewController: BaseViewController {
 
 extension CameraViewController: CameraViewProtocol {
 
+    var backTapPublisher: AnyPublisher<Void, Never> {
+        backButton.tapPublisher
+    }
+
     var flashTapPublisher: AnyPublisher<Void, Never> {
         flashButton.tapPublisher
     }
@@ -73,14 +75,6 @@ extension CameraViewController: CameraViewProtocol {
 
     var snapTapPublisher: AnyPublisher<Void, Never> {
         snapButton.tapPublisher
-    }
-
-    var tipsTapPublisher: AnyPublisher<Void, Never> {
-        tipsButton.tapPublisher
-    }
-
-    var settingsTapPublisher: AnyPublisher<Void, Never> {
-        settingsButton.tapPublisher
     }
 
     func apply(_ viewState: ViewState) {

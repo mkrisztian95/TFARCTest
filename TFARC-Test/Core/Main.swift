@@ -10,13 +10,7 @@ enum Main {
     static func main() {
 
         assembler.apply(assemblies: [
-            AnalyticsAssembly(),
-            AppAssembly(),
-            MidasAssembly(),
-            NetworkingAssembly(),
-            OnboardingAssembly(),
-            PaywallAssembly(),
-            CameraAssembly()
+            AppAssembly()
         ])
 
         UIApplicationMain(
